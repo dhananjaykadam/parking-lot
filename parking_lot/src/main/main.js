@@ -12,7 +12,7 @@ const responseCreator = require('../helpers/response-creator');
 const commandHandlerMap = {
     [CREATE_PARKING_LOT]: (createCommand) => responseCreator.createParkingCreatedResonse(parkingService.initializeWithCapacity(createCommand.data)),
     [PARK]: (parkCommand) => responseCreator.createParkingResponse(parkingService.parkVehicle(parkCommand.data)),
-    [LEAVE]: (leaveCommand) => responseCreator.createVehicleReleaseResponse(parkingService.releaseVehicle(leaveCommand.data)),
+    [LEAVE]: (leaveCommand) => responseCreator.createVehicleReleaseResponse(parkingService.releaseVehicle(leaveCommand.data.registrationNo, leaveCommand.data.hours)),
     [STATUS]: (_statusCommand) => responseCreator.createStatusResponse(parkingService.listParkingSlots())
 }
 

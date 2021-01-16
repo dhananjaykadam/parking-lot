@@ -63,7 +63,6 @@ const releaseVehicle = (registrationNo) => {
     if (parkedVehicle) {
         const releaseResponse = {
             registrationNo,
-            startTime: parkedVehicle.startTime,
             slotNo: parkedVehicle.slotNo,
             success: true
         };

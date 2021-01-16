@@ -24,7 +24,10 @@ const buildLeaveCommand = {
     canParse: (command) => command.startsWith(LEAVE),
     buildCommand: (command) => ({
         type: LEAVE,
-        data: command.split(' ')[1]
+        data: {
+           registrationNo: command.split(' ')[1],
+           hours: command.split(' ')[2],
+        }
     })
 }
 const buildStatuCommand = {

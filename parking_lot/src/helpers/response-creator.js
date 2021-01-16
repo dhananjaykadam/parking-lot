@@ -17,8 +17,7 @@ const createParkingResponse = (parkingStatus) => {
 
 const createVehicleReleaseResponse = (releaseStatus) => {
     if (releaseStatus.success) {
-        const totalCharge = chargesCalculator.calculateCharges(releaseStatus.startTime);
-        return wrapResponse(`Registration number ${releaseStatus.registrationNo} with Slot Number ${releaseStatus.slotNo} is free with Charge ${totalCharge}`);
+        return wrapResponse(`Registration number ${releaseStatus.registrationNo} with Slot Number ${releaseStatus.slotNo} is free with Charge ${releaseStatus.charges}`);
     }
     return wrapResponse(`Registration number ${releaseStatus.registrationNo} not found`);
 }
