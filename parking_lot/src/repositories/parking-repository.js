@@ -19,7 +19,7 @@ const buildParkingSlot = (slotNo) => ({
 });
 
 const initializeWithCapacity = (maxCapacity) => {
-    while (parkingDB.parkingLot.length <= maxCapacity) {
+    while (parkingDB.parkingLot.length < maxCapacity) {
         const slotNo = parkingDB.parkingLot.length + 1;
         parkingDB.parkingLot.push(buildParkingSlot(slotNo))
     }
