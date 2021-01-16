@@ -16,22 +16,11 @@ const commandHandlerMap = {
 }
 
 function main(arguments) {
-    console.log("yeah", arguments);
-
     const inputCommands = fileReader.readFile(arguments);
     const commands = commandHelper.readCommands(inputCommands);
 
-     console.log(commands);
-
-    console.log(parkingService.hasCapacity());
-    parkingService.initializeWithCapacity(10);
-    console.log(parkingService.hasCapacity());
-    //console.log(parkingService.listParkingSlots());
-
-
-    for(const command of commands){
+    for (const command of commands) {
         console.log(command);
-        console.log(commandHandlerMap[command.type]);
         const response = commandHandlerMap[command.type](command);
         console.log(response);
     }

@@ -39,21 +39,21 @@ const parkVehicle = (numberPlate) => {
 
     let availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
     if (availableParkingSlot) {
-        availableParkingSlot = {
-            isOccupied: true,
-            vehicleDetail: numberPlate,
-            startTime: Date.now()
-        }
+        console.log(availableParkingSlot);
+        availableParkingSlot.isOccupied = true;
+        availableParkingSlot.vehicleDetail = numberPlate;
+        availableParkingSlot.startTime = Date.now();
         return true;
     }
     return false;
 }
+
 const releaseVehicle = (numberPlate) => {
     let parkedVehicle = parkingDB.parkingLot.find(parkingLot => parkingLot.vehicleDetail === numberPlate);
     if (parkVehicle) {
-        parkedVehicle = {
-            ...RELEASED_PARKING_SLOT
-        };
+        parkedVehicle.isOccupied = false;
+        parkedVehicle.vehicleDetail = null;
+        parkedVehicle.startTime = Date.now();
         return true;
     }
     return false;
