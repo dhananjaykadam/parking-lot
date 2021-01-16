@@ -44,3 +44,10 @@ const parkVehicle = (numberPlate) => {
     return false;
 }
 
+
+module.exports = {
+    hasCapacity,
+    initializeWithCapacity,
+    listParkingSlots,
+    parkVehicle
+};
