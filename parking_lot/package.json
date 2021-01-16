@@ -1,0 +1,15 @@
+{
+  "name": "parking_lot",
+  "version": "2.0.0",
+  "description": "Parking lot software using Nodejs",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "test",
+    "start": "node index.js"
+  },
+  "author": "Dhananjay Kadam",
+  "license": "ISC"
+}
