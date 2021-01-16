@@ -6,7 +6,7 @@ const wrapResponse = (responseToWrap) => ({
     write: (writter) => writter(responseToWrap)
 });
 
-const createParkingCreatedResonse = (maxCapacity) => wrapResponse(`Created parking lot with ${maxCapacity} slots`);
+const createParkingCreatedResonse = (createResponse) => wrapResponse(`Created parking lot with ${createResponse.maxCapacity} slots`);
 
 const createParkingResponse = (parkingStatus) => {
     if (parkingStatus.success) {
@@ -18,7 +18,7 @@ const createParkingResponse = (parkingStatus) => {
 const createVehicleReleaseResponse = (releaseStatus) => {
     if (releaseStatus.success) {
         const totalCharge = chargesCalculator.calculateCharges(releaseStatus.startTime);
-        return wrapResponse(`Registration number ${releaseStatus.registrationNo} with Slot Number 3 is free with Charge ${totalCharge}`);
+        return wrapResponse(`Registration number ${releaseStatus.registrationNo} with Slot Number ${releaseStatus.slotNo} is free with Charge ${totalCharge}`);
     }
     return wrapResponse(`Registration number ${releaseStatus.registrationNo} not found`);
 }

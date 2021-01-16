@@ -23,6 +23,10 @@ const initializeWithCapacity = (maxCapacity) => {
         const slotNo = parkingDB.parkingLot.length + 1;
         parkingDB.parkingLot.push(buildParkingSlot(slotNo))
     }
+    return {
+        success: true,
+        maxCapacity
+    }
 }
 
 const listParkingSlots = () => {
@@ -55,15 +59,16 @@ const parkVehicle = (registrationNo) => {
 }
 
 const releaseVehicle = (registrationNo) => {
-    let parkedVehicle = parkingDB.parkingLot.find(parkingLot => parkingLot.registrationNo === registrationNo);
-    if (parkVehicle) {
+    let parkedVehicle = parkingDB.parkingLot.find(slot => slot.registrationNo === registrationNo);
+    if (parkedVehicle) {
         const releaseResponse = {
             registrationNo,
             startTime: parkedVehicle.startTime,
+            slotNo: parkedVehicle.slotNo,
             success: true
         };
         parkingDB.parkingHistory.push({
-            ...parkVehicle
+            ...parkedVehicle
         });
 
         parkedVehicle.isOccupied = false;
