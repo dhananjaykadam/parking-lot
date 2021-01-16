@@ -3,13 +3,8 @@ const parkingDB = {
     maxCapacity: 0,
     parkingLot: [
 
-    ]
-};
-
-const RELEASED_PARKING_SLOT = {
-    isOccupied: false,
-    vehicleDetail: null,
-    startTime: null
+    ],
+    parkingHistory: []
 };
 
 const hasCapacity = () => {
@@ -19,7 +14,7 @@ const hasCapacity = () => {
 const buildParkingSlot = (slotNo) => ({
     slotNo: slotNo,
     isOccupied: false,
-    vehicleDetail: null,
+    registrationNo: null,
     startTime: null
 });
 
@@ -31,32 +26,56 @@ const initializeWithCapacity = (maxCapacity) => {
 }
 
 const listParkingSlots = () => {
-    return parkingDB.parkingLot;
+    return parkingDB.parkingLot.filter(slot => slot.isOccupied)
+        .map(({ slotNo, registrationNo }) => ({
+            slotNo,
+            registrationNo
+        }));
 }
 
-const parkVehicle = (numberPlate) => {
+const parkVehicle = (registrationNo) => {
     if (!hasCapacity()) return false;
 
     let availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
     if (availableParkingSlot) {
-        console.log(availableParkingSlot);
+        const allocationResponse = {
+            registrationNo,
+            slotNo: availableParkingSlot.slotNo,
+            success: true
+        };
+
         availableParkingSlot.isOccupied = true;
-        availableParkingSlot.vehicleDetail = numberPlate;
+        availableParkingSlot.registrationNo = registrationNo;
         availableParkingSlot.startTime = Date.now();
-        return true;
+        return allocationResponse;
     }
-    return false;
+    return {
+        status: false
+    };
 }
 
-const releaseVehicle = (numberPlate) => {
-    let parkedVehicle = parkingDB.parkingLot.find(parkingLot => parkingLot.vehicleDetail === numberPlate);
+const releaseVehicle = (registrationNo) => {
+    let parkedVehicle = parkingDB.parkingLot.find(parkingLot => parkingLot.registrationNo === registrationNo);
     if (parkVehicle) {
+        const releaseResponse = {
+            registrationNo,
+            startTime: parkedVehicle.startTime,
+            success: true
+        };
+        parkingDB.parkingHistory.push({
+            ...parkVehicle
+        });
+
         parkedVehicle.isOccupied = false;
-        parkedVehicle.vehicleDetail = null;
-        parkedVehicle.startTime = Date.now();
-        return true;
+        parkedVehicle.registrationNo = null;
+        parkedVehicle.startTime = null;
+
+        return releaseResponse;
     }
-    return false;
+    return {
+        registrationNo,
+        success: false
+    };
 }
 
 module.exports = {

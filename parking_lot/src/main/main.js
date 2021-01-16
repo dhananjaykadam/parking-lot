@@ -7,23 +7,19 @@ const {
     LEAVE,
     STATUS
 } = require('../constants/commands');
+const responseCreator = require('../helpers/response-creator');
 
 const commandHandlerMap = {
-    [CREATE_PARKING_LOT]: (createCommand) => parkingService.initializeWithCapacity(createCommand.data),
-    [PARK]: (parkCommand) => parkingService.parkVehicle(parkCommand.data),
-    [LEAVE]: (leaveCommand) => parkingService.releaseVehicle(leaveCommand.data),
-    [STATUS]: (_statusCommand) => parkingService.listParkingSlots()
+    [CREATE_PARKING_LOT]: (createCommand) => responseCreator.createParkingCreatedResonse(parkingService.initializeWithCapacity(createCommand.data)),
+    [PARK]: (parkCommand) => responseCreator.createParkingResponse(parkingService.parkVehicle(parkCommand.data)),
+    [LEAVE]: (leaveCommand) => responseCreator.createVehicleReleaseResponse(parkingService.releaseVehicle(leaveCommand.data)),
+    [STATUS]: (_statusCommand) => responseCreator.createStatusResponse(parkingService.listParkingSlots())
 }
 
 function main(arguments) {
     const inputCommands = fileReader.readFile(arguments);
     const commands = commandHelper.readCommands(inputCommands);
-
-    for (const command of commands) {
-        console.log(command);
-        const response = commandHandlerMap[command.type](command);
-        console.log(response);
-    }
+    commands.forEach(command => commandHandlerMap[command.type](command).write(console.log));
 }
 
 module.exports = {
