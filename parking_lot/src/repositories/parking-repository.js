@@ -6,8 +6,14 @@ const parkingDB = {
     ]
 };
 
+const RELEASED_PARKING_SLOT = {
+    isOccupied: false,
+    vehicleDetail: null,
+    startTime: null
+};
+
 const hasCapacity = () => {
-    return parkingDB.parkingLot.length < parkingDB.maxCapacity;
+    return parkingDB.parkingLot.some(parkingLot => !parkingLot.isOccupied);
 }
 
 const buildParkingSlot = (slotNo) => ({
@@ -18,8 +24,6 @@ const buildParkingSlot = (slotNo) => ({
 });
 
 const initializeWithCapacity = (maxCapacity) => {
-    parkingDB.maxCapacity = maxCapacity;
-
     while (parkingDB.parkingLot.length <= maxCapacity) {
         const slotNo = parkingDB.parkingLot.length + 1;
         parkingDB.parkingLot.push(buildParkingSlot(slotNo))
@@ -31,23 +35,34 @@ const listParkingSlots = () => {
 }
 
 const parkVehicle = (numberPlate) => {
-    const availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
+    if (!hasCapacity()) return false;
+
+    let availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
     if (availableParkingSlot) {
-        const newParkingDetails = {
-            isOccupied = true,
-            vehicleDetail = numberPlate,
-            startTime = Date.now()
+        availableParkingSlot = {
+            isOccupied: true,
+            vehicleDetail: numberPlate,
+            startTime: Date.now()
+        }
+        return true;
+    }
+    return false;
+}
+const releaseVehicle = (numberPlate) => {
+    let parkedVehicle = parkingDB.parkingLot.find(parkingLot => parkingLot.vehicleDetail === numberPlate);
+    if (parkVehicle) {
+        parkedVehicle = {
+            ...RELEASED_PARKING_SLOT
         };
-        availableParkingSlot = newParkingDetails;
         return true;
     }
     return false;
 }
 
-
 module.exports = {
     hasCapacity,
     initializeWithCapacity,
     listParkingSlots,
-    parkVehicle
+    parkVehicle,
+    releaseVehicle
 };
