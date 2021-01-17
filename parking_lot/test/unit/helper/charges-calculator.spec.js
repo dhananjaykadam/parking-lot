@@ -1,5 +1,5 @@
 const chargesCalculator = require('../../../src/helpers/charges-calculator');
-var { expect } = require("chai");
+const { expect } = require("chai");
 
 describe("Charges calculator", function () {
     it("should have $10 for first two hour", function () {

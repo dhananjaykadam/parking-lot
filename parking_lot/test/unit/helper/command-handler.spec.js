@@ -1,5 +1,5 @@
 const commandHandler = require('../../../src/helpers/command-handler');
-var { expect } = require("chai");
+const { expect } = require("chai");
 const { CREATE_PARKING_LOT, PARK, STATUS, LEAVE } = require('../../../src/constants/commands');
 
 describe("Command Handler", function () {

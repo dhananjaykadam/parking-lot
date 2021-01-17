@@ -1,8 +1,7 @@
 const responseCreator = require('../../../src/helpers/response-creator');
-var { expect } = require("chai");
-var sinon = require("sinon");
-var Chance = require("chance");
-const { CREATE_PARKING_LOT, PARK, STATUS, LEAVE } = require('../../../src/constants/commands');
+const { expect } = require("chai");
+const sinon = require("sinon");
+const Chance = require("chance");
 
 const chance = new Chance();
 describe("Response Creator", function () {

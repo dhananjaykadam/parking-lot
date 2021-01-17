@@ -38,9 +38,13 @@ const listParkingSlots = () => {
 }
 
 const parkVehicle = (registrationNo) => {
-    if (!hasCapacity()) return false;
+    if (!hasCapacity()) {
+        return {
+            success: false
+        };
+    }
 
-    let availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
+    const availableParkingSlot = parkingDB.parkingLot.find(parkingLot => !parkingLot.isOccupied);
     if (availableParkingSlot) {
         const allocationResponse = {
             registrationNo,
@@ -54,12 +58,12 @@ const parkVehicle = (registrationNo) => {
         return allocationResponse;
     }
     return {
-        status: false
+        success: false
     };
 }
 
 const releaseVehicle = (registrationNo) => {
-    let parkedVehicle = parkingDB.parkingLot.find(slot => slot.registrationNo === registrationNo);
+    const parkedVehicle = parkingDB.parkingLot.find(slot => slot.registrationNo === registrationNo);
     if (parkedVehicle) {
         const releaseResponse = {
             registrationNo,

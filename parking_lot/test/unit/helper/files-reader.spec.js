@@ -1,7 +1,6 @@
-const fileReader = require('../../../src/helpers/file-reader');
-var { expect } = require("chai");
-var sinon = require("sinon");
-var proxyquire = require("proxyquire");
+const { expect } = require("chai");
+const sinon = require("sinon");
+const proxyquire = require("proxyquire");
 
 describe("Files reader", function () {
     it("should read file contents and return lines", function () {
