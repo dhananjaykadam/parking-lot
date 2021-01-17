@@ -1,6 +1,6 @@
 const parkingService = require('../services/parking-service');
 const fileReader = require('../helpers/file-reader');
-const commandHelper = require('../helpers/command-handler');
+const commandHandler = require('../helpers/command-handler');
 const {
     CREATE_PARKING_LOT,
     PARK,
@@ -9,7 +9,7 @@ const {
 } = require('../constants/commands');
 const responseCreator = require('../helpers/response-creator');
 
-const commandHandlerMap = {
+const mappedCommands = {
     [CREATE_PARKING_LOT]: (createCommand) => responseCreator.createParkingCreatedResonse(parkingService.initializeWithCapacity(createCommand.data)),
     [PARK]: (parkCommand) => responseCreator.createParkingResponse(parkingService.parkVehicle(parkCommand.data)),
     [LEAVE]: (leaveCommand) => responseCreator.createVehicleReleaseResponse(parkingService.releaseVehicle(leaveCommand.data.registrationNo, leaveCommand.data.hours)),
@@ -18,8 +18,8 @@ const commandHandlerMap = {
 
 function main(arguments) {
     const inputCommands = fileReader.readFile(arguments);
-    commandHelper.buildCommands(inputCommands)
-        .map(command => commandHandlerMap[command.type](command))
+    commandHandler.buildCommands(inputCommands)
+        .map(command => mappedCommands[command.type](command))
         .forEach(writer => writer.write(console.log));
 }
 
