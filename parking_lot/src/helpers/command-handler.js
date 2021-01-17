@@ -25,8 +25,8 @@ const buildLeaveCommand = {
     buildCommand: (command) => ({
         type: LEAVE,
         data: {
-           registrationNo: command.split(' ')[1],
-           hours: command.split(' ')[2],
+            registrationNo: command.split(' ')[1],
+            hours: parseInt(command.split(' ')[2]),
         }
     })
 }
@@ -37,11 +37,11 @@ const buildStatuCommand = {
         data: ''
     })
 }
-const readCommands = (commands) => {
+const buildCommands = (commands) => {
     const commandHandlers = [buildCreateCommand, buildParkCommand, buildLeaveCommand, buildStatuCommand];
     return commands.map(command => commandHandlers.find(handler => handler.canParse(command)).buildCommand(command));
 }
 
 module.exports = {
-    readCommands
+    buildCommands
 }

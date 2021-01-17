@@ -18,8 +18,9 @@ const commandHandlerMap = {
 
 function main(arguments) {
     const inputCommands = fileReader.readFile(arguments);
-    const commands = commandHelper.readCommands(inputCommands);
-    commands.forEach(command => commandHandlerMap[command.type](command).write(console.log));
+    commandHelper.buildCommands(inputCommands)
+        .map(command => commandHandlerMap[command.type](command))
+        .forEach(writer => writer.write(console.log));
 }
 
 module.exports = {

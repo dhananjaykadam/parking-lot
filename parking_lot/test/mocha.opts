@@ -1,0 +1,5 @@
+--colors
+--recursive
+--reporter spec
+--require chai-autoload-plugins
+--timeout 10000
