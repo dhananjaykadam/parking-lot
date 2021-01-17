@@ -1,6 +1,6 @@
 # Parking-lot
 
-## setup
+## Setup
 * Run `bin/setup` to install node dependencies and also it will run unit tests
   - If `npm i` fails give it a retry and it should pass(this usually never happens, but observed in docker container few times)
   
