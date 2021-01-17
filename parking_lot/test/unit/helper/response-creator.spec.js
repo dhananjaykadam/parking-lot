@@ -35,9 +35,9 @@ describe("Response Creator", function () {
             }
         ];
         const expectedResponses = [
-            'Slot No. Registration No.',
-            `${responses[0].slotNo} ${responses[0].registrationNo}`,
-            `${responses[1].slotNo} ${responses[1].registrationNo}`
+            'Slot No.    Registration No.',
+            `${responses[0].slotNo}           ${responses[0].registrationNo}`,
+            `${responses[1].slotNo}           ${responses[1].registrationNo}`
         ];
 
         const statusResponse = responseCreator.createStatusResponse(responses);

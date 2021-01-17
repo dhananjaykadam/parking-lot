@@ -17,6 +17,6 @@ describe("Files reader", function () {
         const response = proxiedFileReader.readFile(fileName);
 
         expect(exppectedResponse).to.deep.equals(response);
-        sinon.assert.calledOnceWithExactly(readFileSync, `./functional_spec/fixtures//${fileName}`, 'utf8');
+        sinon.assert.calledOnceWithExactly(readFileSync, fileName, 'utf8');
     });
 });
