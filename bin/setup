@@ -5,5 +5,6 @@
 #
 # After this is run, bin/parking_lot
 # should Just Work.
-cd parking_lot
-npm i
+
+#if below npm i fails, give it a retry and it will work!
+cd parking_lot && npm i && npm run test
