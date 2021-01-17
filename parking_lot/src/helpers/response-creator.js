@@ -23,8 +23,8 @@ const createVehicleReleaseResponse = (releaseStatus) => {
 }
 
 const createStatusResponse = (parkingSlots) => {
-    const response = parkingSlots.map(slot => `${slot.slotNo} ${slot.registrationNo}`);
-    response.unshift('Slot No. Registration No.');
+    const response = parkingSlots.map(slot => `${slot.slotNo}           ${slot.registrationNo}`);
+    response.unshift('Slot No.    Registration No.');
     return {
         response: response,
         write: (writer) => response.forEach(response => writer(response))
