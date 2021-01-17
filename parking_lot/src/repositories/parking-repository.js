@@ -71,7 +71,8 @@ const releaseVehicle = (registrationNo) => {
             success: true
         };
         parkingDB.parkingHistory.push({
-            ...parkedVehicle
+            ...parkedVehicle,
+            endTime: Date.now()
         });
 
         parkedVehicle.isOccupied = false;
