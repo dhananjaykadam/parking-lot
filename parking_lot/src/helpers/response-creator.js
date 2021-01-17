@@ -3,7 +3,7 @@ const chargesCalculator = require('./charges-calculator');
 
 const wrapResponse = (responseToWrap) => ({
     response: responseToWrap,
-    write: (writter) => writter(responseToWrap)
+    write: (writer) => writer(responseToWrap)
 });
 
 const createParkingCreatedResonse = (createResponse) => wrapResponse(`Created parking lot with ${createResponse.maxCapacity} slots`);
@@ -27,7 +27,7 @@ const createStatusResponse = (parkingSlots) => {
     response.unshift('Slot No. Registration No.');
     return {
         response: response,
-        write: (writter) => response.forEach(response => writter(response))
+        write: (writer) => response.forEach(response => writer(response))
     };
 }
 
